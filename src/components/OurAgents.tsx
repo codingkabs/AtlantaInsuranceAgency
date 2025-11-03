@@ -4,8 +4,8 @@ const agents = [
   {
     name: 'David Kang',
     title: 'Agent Owner',
-    phone: '',
-    email: ''
+    phone: '(404) 422-7031',
+    email: 'david@tegins.net'
   },
   {
     name: 'Julie',
@@ -16,8 +16,8 @@ const agents = [
   {
     name: 'Prakash Patel',
     title: 'Insurance Agent',
-    phone: '',
-    email: ''
+    phone: '(404) 667-5689',
+    email: 'prakash@tegins.net'
   },
   {
     name: 'Jennifer Kang',
@@ -28,8 +28,8 @@ const agents = [
   {
     name: 'Roselin Samnani',
     title: 'Insurance Agent',
-    phone: '',
-    email: ''
+    phone: '(678) 629-9353',
+    email: 'roselin@tegins.net'
   }
 ];
 
