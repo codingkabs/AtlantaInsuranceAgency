@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import BusinessSpecialties from './components/BusinessSpecialties';
 import OurAgents from './components/OurAgents';
 import Services from './components/Services';
+import Carriers from './components/Carriers';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -15,6 +16,7 @@ function App() {
       <BusinessSpecialties />
       <OurAgents />
       <Services />
+      <Carriers />
       <About />
       <Contact />
       <Footer />
