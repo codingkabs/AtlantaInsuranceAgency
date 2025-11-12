@@ -23,6 +23,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Get recipient email from environment variable, fallback to default
     const recipientEmail = process.env.RECIPIENT_EMAIL || 'david@tegins.net';
 
+    // Escape HTML to prevent XSS in email
+    const escapeHtml = (text: string) => {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    };
+
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safePhone = escapeHtml(phone);
+    const safeInsuranceType = escapeHtml(insuranceType);
+    const safeMessage = message ? escapeHtml(message) : '';
+
     // Send email using Resend
     const { data, error } = await resend.emails.send({
       from: 'Atlanta Insurance Agency <onboarding@resend.dev>', // You'll need to verify your domain later
@@ -33,15 +49,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #1e3a8a;">New Quote Request</h2>
           <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Phone:</strong> ${phone}</p>
-            <p><strong>Insurance Type:</strong> ${insuranceType}</p>
+            <p><strong>Name:</strong> ${safeName}</p>
+            <p><strong>Email:</strong> ${safeEmail}</p>
+            <p><strong>Phone:</strong> ${safePhone}</p>
+            <p><strong>Insurance Type:</strong> ${safeInsuranceType}</p>
           </div>
-          ${message ? `
+          ${safeMessage ? `
             <div style="background-color: #ffffff; padding: 20px; border-left: 4px solid #1e3a8a; margin: 20px 0;">
               <h3 style="color: #1e3a8a; margin-top: 0;">Additional Information:</h3>
-              <p style="white-space: pre-wrap;">${message}</p>
+              <p style="white-space: pre-wrap;">${safeMessage}</p>
             </div>
           ` : ''}
           <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
